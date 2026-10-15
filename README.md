@@ -262,14 +262,30 @@ unzip repo.zip
 
 ### 安装命令
 
-**方式一：一行命令（脚本自举，自动 clone 本仓库 + 上游 + 编译）**
+**Windows 原生（PowerShell，推荐，无需 Git Bash）**
 
-```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/<YOUR_GITHUB>/wechat-hub/main/install.sh)"
+```powershell
+irm https://raw.githubusercontent.com/<YOUR_GITHUB>/wechat-hub/main/install.ps1 | iex
 ```
 
+若系统禁止脚本执行，下载后带仓库参数运行：
+
+```powershell
+Invoke-WebRequest https://raw.githubusercontent.com/<YOUR_GITHUB>/wechat-hub/main/install.ps1 -OutFile install.ps1
+powershell -ExecutionPolicy Bypass -File install.ps1 https://github.com/<YOUR_GITHUB>/wechat-hub.git
+```
+
+> 自动安装 Rust 时会联网下载 `rustup-init.exe`；wcdb-key 编译依赖 **Visual Studio 生成工具（MSVC）**，未安装会编译失败（装 Python 依赖的 sqlcipher3 也需要 C 编译工具链）。
+
+**方式一：一行命令（脚本自举，macOS / Linux / Windows-Git-Bash）**
+
+```bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/<YOUR_GITHUB>/wechat-hub/main/install.sh)" _ https://github.com/<YOUR_GITHUB>/wechat-hub.git
+```
+
+> 命令末尾的仓库 URL 是传给脚本的参数，必须和前面的 raw 链接用同一个 `<YOUR_GITHUB>`。
 > **发布前必做**：把 `<YOUR_GITHUB>` 换成你自己的 GitHub 用户名/仓库，且本仓库已 push 到 GitHub（否则 raw 链接和 clone 链接无效）。
-> **Windows 用户**：请用 **Git Bash**（安装 Git for Windows 自带）或 WSL 运行上述命令。
+> macOS / Linux 直接跑；Windows 可用 **Git Bash**（安装 Git for Windows 自带）或 WSL。
 
 **方式二：手动 clone 后运行**
 
