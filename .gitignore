@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# 本地密钥与导出数据（绝不入库）
+.wechat-private/
+wcdb-key/
+wechat-intelligence-hub/
+
+# 系统
+.DS_Store
+Thumbs.db
+*.log
