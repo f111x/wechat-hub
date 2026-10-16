@@ -22,6 +22,11 @@
 set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Git Bash 的 pwd 给出 POSIX 路径（/c/Users/...），Windows Python 不识别，
+# 会导致 sys.path.insert 失效、wxconfig 找不到。转成 Windows 风格路径。
+case "$(uname -s)" in
+  MINGW*|MSYS*|CYGWIN*) command -v cygpath >/dev/null 2>&1 && HERE="$(cygpath -w "$HERE")" ;;
+esac
 PY="${WECHAT_PYTHON:-python3}"
 [ -x "$PY" ] || PY="python"
 
