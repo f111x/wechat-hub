@@ -186,6 +186,43 @@ bash scripts/rreader.sh setup \
 
 ---
 
+## 每日定时日报
+
+```bash
+bash ~/.workbuddy/skills/wechat-hub/scripts/run_daily.sh# 昨天：导出 → 日报 → 推送
+bash ~/.workbuddy/skills/wechat-hub/scripts/run_daily.sh 2026-10-16   # 指定日期
+```
+
+产物在 `<data_dir>/digest/`：`<日期>.md`（人读）、`<日期>.json`（机器读）、
+`push_log.jsonl`（推送审计）。
+
+推送通道（webhook 只从环境变量读，不入文件）：
+
+| 通道 | 环境变量 |
+|---|---|
+| 钉钉（推荐） | `DINGTALK_WEBHOOK` |
+| 企业微信 | `WECOM_WEBHOOK` |
+| 只打印（默认兜底） | 不配即可|
+
+```bash
+"$P" $S/push_daily.py yesterday --dry-run# 先看要推什么
+"$P" $S/push_daily.py yesterday --test    # 只测连通性
+```
+
+日报可信度来自四层过滤（2026-10-16 实测：原始 1080 → 可行动 416）：
+
+| 层 | 剔除 | 实测 |
+|---|---|---|
+| ① 媒体噪声 | 图片/表情/链接/撤回 XML | 500 |
+| ② 推广文案 | 社群拉人、账号售卖、云服务推销 | 69 |
+| ③ 系统通知 | 打卡机器人、签到提醒 | 0 |
+| ④ 转发去重 | 同一推文转发十几个群 | 95 |
+
+置信度只有「已确认 / 高概率」两档，全部走确定性正则——定时推送没人盯着，
+宁可漏也不让模型编。金额、日期、承诺一律取自原文，不做推断。
+
+---
+
 ## 日常使用
 
 ```bash
