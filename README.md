@@ -359,6 +359,22 @@ cd wechat-hub-main && bash install.sh
 
 ## 许可证
 
-本 Skill 为适配层。核心能力来自上游 `Rion-Wu-tech/wechat-intelligence-hub`，
-**AGPL-3.0-only** —— 二次分发需遵守 AGPL 条款。
-`wcdb-key` 为 MIT。
+**本仓库代码（scripts/、SKILL.md、README.md、install.*）采用 MIT 许可。**
+
+本 Skill 为适配层，**不包含、不复制、不修改**上游任何代码，仅引用并调用其入口。
+
+运行时依赖的上游项目许可独立生效，不受本仓库 MIT 影响：
+
+| 组件 | 许可 | 关系 |
+|-|-|-|
+| 本仓库 wechat-hub | **MIT** | 自行编写的代码与文档 |
+| `Rion-Wu-tech/wechat-intelligence-hub` | **AGPL-3.0-only** | 运行时依赖，仅调用不修改 |
+| `wcdb-key` | MIT | 密钥捕获 |
+
+⚠️ **实际部署时仍需遵守上游 AGPL 的义务**——尤其是把本链路作为网络服务对外提供时，
+需向使用者提供相应源代码。完整边界说明见 **NOTICE** 文件。
+
+若需闭源集成、专有分发或 OEM / 白标，上游提供商业授权通道：
+仅在企业内部使用且遵守 AGPL 时**不需要**单独商业许可；
+付费会员、咨询、安装支持不自动授予商业许可，必须另行书面约定。
+详见上游 `COMMERCIAL-LICENSE.md`。
